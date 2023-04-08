@@ -1,17 +1,15 @@
 import React, { FC, useEffect } from "react";
-import { useTypeSelector } from "../hooks/useTypeSelector";
-import { useDispatch } from "react-redux";
-import { fetchUsers } from "../store/action-creators/user";
+import { UseTypeSelector } from "../hooks/useTypeSelector";
+import { UseActions } from "../hooks/useAction";
 
-interface IProps {}
-
-export const UserList: FC<IProps> = (props) => {
-  const { error, loading, users } = useTypeSelector((state) => state.user);
-  const dispatch = useDispatch();
+export const UserList: FC = () => {
+  const { error, loading, users } = UseTypeSelector((state) => state.user);
+  const { fetchUsers } = UseActions();
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  });
+    fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (loading) {
     return <h1>Идет загрузка...</h1>;
